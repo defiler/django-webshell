@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import commands
-
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import permission_required
+
+from .utils import sys_call
 
 
 @csrf_exempt
@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import permission_required
 def execute_script_view(request):
     source = request.POST.get('source', '').replace('"', r'\"')
     cmd = u'python -c "%s"' % source
-    result = commands.getoutput(cmd.encode('utf-8'))
+    return_code, output = sys_call(cmd.encode('utf-8'))
+    output = ('return_code: %i\n\n' % return_code) + output
 
-    return HttpResponse(result)
+    return HttpResponse(output)
