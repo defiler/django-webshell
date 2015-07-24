@@ -10,6 +10,9 @@ class Script(models.Model):
     def __unicode__(self):
         return self.name
 
+    some_source = lambda self: self.source[:200]
+    some_source.short_description = u'Часть кода'
+
     class Meta:
         verbose_name = u'Скрипт'
         verbose_name_plural = u'Скрипты'
