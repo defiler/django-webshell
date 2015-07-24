@@ -3,18 +3,20 @@ from .models import Script
 
 
 class ScriptForm(forms.ModelForm):
+
     class Meta:
         model = Script
+        fields = "__all__"
 
     class Media:
         css = {
             'all': (
-                'css/codemirror.css',
-                'css/highlight.min.css'
+                '/admin/webshell/static/css/codemirror.css',
+                '/admin/webshell/static/css/highlight.min.css'
             )
         }
         js = (
-            'js/codemirror.js',
-            'js/python.js',
-            'js/highlight.min.js',
+            '/admin/webshell/static/js/codemirror.js',
+            '/admin/webshell/static/js/python.js',
+            '/admin/webshell/static/js/highlight.min.js',
         )
